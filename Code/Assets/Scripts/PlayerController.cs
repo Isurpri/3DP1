@@ -1,3 +1,6 @@
+using System;
+using System.Runtime.InteropServices.WindowsRuntime;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 public class PlayerController : MonoBehaviour
@@ -18,6 +21,7 @@ public class PlayerController : MonoBehaviour
     public float m_Speed;
     public float m_Jumpspeed;
     public float m_SpeedMultiplier;
+    public int m_AmmoCount = 0;
 
     public Camera m_Camera;
 
@@ -33,15 +37,35 @@ public class PlayerController : MonoBehaviour
     public KeyCode m_UpKeyCode = KeyCode.W;
     public KeyCode m_JumpKeyCode = KeyCode.Space;
     public KeyCode m_RunKeyCode = KeyCode.LeftShift;
+    public KeyCode m_ReloadKeyCode = KeyCode.R;
     public int m_ShootMouseButton = 0;
 
     [Header("Ddebug Input")]
     public KeyCode m_DebugLockAngleKeyCode = KeyCode.I;
 
+    [Header("Animation")]
+    public Animation m_Animation;
+    public AnimationClip m_IdleAnimationClip;
+    public AnimationClip m_ReloadAnimationClip;
+    public AnimationClip m_ShootAnimationClip;
+
+    public int m_Life = 100;
     void Start()
     {
+        var l_Player = GameManager.GetGameManager().GetPlayer();
+        if (l_Player != null)
+        {
+            l_Player.m_CharacterController.enabled = false;
+            l_Player.transform.position = transform.position;
+            l_Player.transform.position = transform.position;
+            l_Player.m_CharacterController.enabled = true;
+            GameObject.Destroy(gameObject);
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+        GameManager.GetGameManager().SetPlayer(this);
         Cursor.lockState = CursorLockMode.Locked;
-
+        SetIdleAnimation();
     }
 
     void Update()
@@ -104,14 +128,24 @@ public class PlayerController : MonoBehaviour
 
         if (CanShoot() && Input.GetMouseButtonDown(m_ShootMouseButton))
             Shoot();
+        if (CanReload() && Input.GetKeyDown(m_ReloadKeyCode))
+            Reload();
+    }
+    bool CanReload()
+    {
+        return true;
+    }
+    void Reload()
+    {
+        SetReloadAnimation();
     }
     bool CanShoot()
     {
         return true;
     }
-
     void Shoot()
     {
+        SetShootAnimation();
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         if (Physics.Raycast(l_Ray, out RaycastHit l_RayCastHit, m_ShootMaxDistance, m_ShootLayerMask.value))
             CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
@@ -122,5 +156,28 @@ public class PlayerController : MonoBehaviour
         l_ShootParticles.transform.position = Position;
         l_ShootParticles.transform.rotation = Quaternion.LookRotation(Normal);
         l_ShootParticles.SetActive(true);
+    }
+
+    void SetIdleAnimation()
+    {
+        m_Animation.CrossFade(m_IdleAnimationClip.name);
+    }
+    void SetReloadAnimation()
+    {
+        m_Animation.CrossFade(m_ReloadAnimationClip.name, 0.1f);
+        m_Animation.CrossFadeQueued(m_IdleAnimationClip.name, 0.1f);
+    }
+    void SetShootAnimation()
+    {
+        m_Animation.CrossFade(m_ShootAnimationClip.name, 0.1f);
+        m_Animation.CrossFadeQueued(m_IdleAnimationClip.name, 0.1f);
+    }
+    public void AddAmmo(int Ammo)
+    {
+        m_AmmoCount += Ammo;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        
     }
 }
