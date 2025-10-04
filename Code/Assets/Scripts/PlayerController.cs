@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     public float m_Jumpspeed;
     public float m_SpeedMultiplier;
     public int m_AmmoCount = 0;
+    public int m_Health = 100;
 
     public Camera m_Camera;
 
@@ -175,6 +176,10 @@ public class PlayerController : MonoBehaviour
     public void AddAmmo(int Ammo)
     {
         m_AmmoCount += Ammo;
+    }
+    public void AddHealing(int Healing)
+    {
+        m_Health += Healing;
     }
     private void OnTriggerEnter(Collider other)
     {

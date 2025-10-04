@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
         }
     }
     //para cambiar entre escenas
-    private void Updat()
+    private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
             SceneManager.LoadSceneAsync("Level2");

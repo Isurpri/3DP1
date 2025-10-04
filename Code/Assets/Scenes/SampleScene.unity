@@ -853,6 +853,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3454145115224315775}
     - target: {fileID: 8738005085914332443, guid: 4e0e01ef4f161b840867b73faaaf8080, type: 3}
+      propertyPath: m_AmmoCount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738005085914332443, guid: 4e0e01ef4f161b840867b73faaaf8080, type: 3}
       propertyPath: m_ShootParticles
       value: 
       objectReference: {fileID: 721779117152424636, guid: 875c80d10f1276f46912af6893157b68, type: 3}
