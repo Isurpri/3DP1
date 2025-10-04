@@ -52,6 +52,7 @@ public class PlayerController : MonoBehaviour
     public int m_Life = 100;
     void Start()
     {
+        SetIdleAnimation();
         var l_Player = GameManager.GetGameManager().GetPlayer();
         if (l_Player != null)
         {
@@ -65,7 +66,6 @@ public class PlayerController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         GameManager.GetGameManager().SetPlayer(this);
         Cursor.lockState = CursorLockMode.Locked;
-        SetIdleAnimation();
     }
 
     void Update()
@@ -178,6 +178,10 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        
+        Item l_Item = other.GetComponent<Item>();
+        if (l_Item != null)
+        {
+            l_Item.Pick();
+        }
     }
 }
