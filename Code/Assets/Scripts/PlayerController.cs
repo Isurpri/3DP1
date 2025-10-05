@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public float m_Jumpspeed;
     public float m_SpeedMultiplier;
     public int m_Health = 100;
+    public float m_totalAmount = 30;
 
     public Camera m_Camera;
 
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public float m_ShootMaxDistance = 50.0f;
     public LayerMask m_ShootLayerMask;
     public GameObject m_ShootParticles;
-    public float m_totalAmmoCount = 24f;
+    public float m_ChargerAmmoCount = 24f;
     public float m_costAmmoShot = 1f;
     private float m_initialAmmo;
     bool isReloading = false;
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
     public int m_Life = 100;
     void Start()
     {
-        m_initialAmmo = m_totalAmmoCount;
+        m_initialAmmo = m_ChargerAmmoCount;
         SetIdleAnimation();
         var l_Player = GameManager.GetGameManager().GetPlayer();
         if (l_Player != null)
@@ -145,7 +146,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(m_RunKeyCode))
             return false;
 
-        if (m_totalAmmoCount >= m_initialAmmo)
+        if (m_ChargerAmmoCount >= m_initialAmmo) //Cargador lleno
+            return false;
+
+        if (m_totalAmount <= 0)
             return false;
 
         return true;
@@ -153,11 +157,26 @@ public class PlayerController : MonoBehaviour
     void Reload()
     {
         SetReloadAnimation();
-        m_totalAmmoCount = m_initialAmmo;
+
+        float needed = m_initialAmmo - m_ChargerAmmoCount;
+
+        if (needed <= 0)
+            return; 
+
+        if (m_totalAmount >= needed)
+        {
+            m_totalAmount -= needed;
+            m_ChargerAmmoCount += needed;
+        }
+        else 
+        {
+            m_ChargerAmmoCount += m_totalAmount;
+            m_totalAmount = 0;
+        }
     }
     bool CanShoot()
     {
-        if (m_totalAmmoCount<=0 || isReloading)
+        if (m_ChargerAmmoCount<=0 || isReloading)
         {
             return false;
         }
@@ -165,7 +184,7 @@ public class PlayerController : MonoBehaviour
     }
     void Shoot()
     {
-        m_totalAmmoCount -= m_costAmmoShot;
+        m_ChargerAmmoCount -= m_costAmmoShot;
         SetShootAnimation();
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         if (Physics.Raycast(l_Ray, out RaycastHit l_RayCastHit, m_ShootMaxDistance, m_ShootLayerMask.value))
@@ -207,11 +226,11 @@ public class PlayerController : MonoBehaviour
     }
     public void AddAmmo(int Ammo)
     {
-        m_totalAmmoCount += Ammo;
-        if (m_totalAmmoCount>=m_initialAmmo)
+        m_totalAmount += Ammo;
+        /*if (m_ChargerAmmoCount>=m_initialAmmo)
         {
-            m_totalAmmoCount = m_initialAmmo;
-        }
+            m_ChargerAmmoCount = m_initialAmmo;
+        }*/
     }
     public void AddHealing(int Healing)
     {
