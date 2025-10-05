@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using Unity.VisualScripting;
@@ -21,7 +22,6 @@ public class PlayerController : MonoBehaviour
     public float m_Speed;
     public float m_Jumpspeed;
     public float m_SpeedMultiplier;
-    public int m_AmmoCount = 0;
     public int m_Health = 100;
 
     public Camera m_Camera;
@@ -30,6 +30,10 @@ public class PlayerController : MonoBehaviour
     public float m_ShootMaxDistance = 50.0f;
     public LayerMask m_ShootLayerMask;
     public GameObject m_ShootParticles;
+    public float m_totalAmmoCount = 24f;
+    public float m_costAmmoShot = 1f;
+    private float m_initialAmmo;
+    bool isReloading = false;
 
     [Header("Input")]
     public KeyCode m_LeftKeyCode = KeyCode.A;
@@ -53,6 +57,7 @@ public class PlayerController : MonoBehaviour
     public int m_Life = 100;
     void Start()
     {
+        m_initialAmmo = m_totalAmmoCount;
         SetIdleAnimation();
         var l_Player = GameManager.GetGameManager().GetPlayer();
         if (l_Player != null)
@@ -134,18 +139,33 @@ public class PlayerController : MonoBehaviour
     }
     bool CanReload()
     {
+        if (m_VerticalSpeed!=0)
+            return false;
+
+        if (Input.GetKey(m_RunKeyCode))
+            return false;
+
+        if (m_totalAmmoCount >= m_initialAmmo)
+            return false;
+
         return true;
     }
     void Reload()
     {
         SetReloadAnimation();
+        m_totalAmmoCount = m_initialAmmo;
     }
     bool CanShoot()
     {
+        if (m_totalAmmoCount<=0 || isReloading)
+        {
+            return false;
+        }
         return true;
     }
     void Shoot()
     {
+        m_totalAmmoCount -= m_costAmmoShot;
         SetShootAnimation();
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         if (Physics.Raycast(l_Ray, out RaycastHit l_RayCastHit, m_ShootMaxDistance, m_ShootLayerMask.value))
@@ -165,8 +185,20 @@ public class PlayerController : MonoBehaviour
     }
     void SetReloadAnimation()
     {
-        m_Animation.CrossFade(m_ReloadAnimationClip.name, 0.1f);
-        m_Animation.CrossFadeQueued(m_IdleAnimationClip.name, 0.1f);
+        if (!isReloading)
+        {
+            isReloading = true;
+            m_Animation.CrossFade(m_ReloadAnimationClip.name, 0.1f);
+            m_Animation.CrossFadeQueued(m_IdleAnimationClip.name, 0.1f);
+            StartCoroutine(WaitForReloadEnd());
+        }
+    }
+
+    IEnumerator WaitForReloadEnd()
+    {
+        yield return new WaitWhile(() => m_Animation.IsPlaying(m_ReloadAnimationClip.name));
+
+        isReloading = false; 
     }
     void SetShootAnimation()
     {
@@ -175,7 +207,11 @@ public class PlayerController : MonoBehaviour
     }
     public void AddAmmo(int Ammo)
     {
-        m_AmmoCount += Ammo;
+        m_totalAmmoCount += Ammo;
+        if (m_totalAmmoCount>=m_initialAmmo)
+        {
+            m_totalAmmoCount = m_initialAmmo;
+        }
     }
     public void AddHealing(int Healing)
     {
