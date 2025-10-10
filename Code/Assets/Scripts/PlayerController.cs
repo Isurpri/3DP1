@@ -6,6 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
+    Vector3 m_startPosition;
+    Quaternion m_startRotation;
+
     float m_Yaw;
     float m_Pitch;
     public float m_YawSpeed;
@@ -67,9 +70,13 @@ public class PlayerController : MonoBehaviour
             l_Player.transform.position = transform.position;
             l_Player.transform.position = transform.position;
             l_Player.m_CharacterController.enabled = true;
+            l_Player.m_startPosition=transform.position;
+            l_Player.m_startRotation=transform.rotation;
             GameObject.Destroy(gameObject);
             return;
         }
+        m_startPosition = transform.position;
+        m_startRotation = transform.rotation;
         DontDestroyOnLoad(gameObject);
         GameManager.GetGameManager().SetPlayer(this);
         Cursor.lockState = CursorLockMode.Locked;
@@ -188,7 +195,12 @@ public class PlayerController : MonoBehaviour
         SetShootAnimation();
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         if (Physics.Raycast(l_Ray, out RaycastHit l_RayCastHit, m_ShootMaxDistance, m_ShootLayerMask.value))
-            CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
+        {
+            if (l_RayCastHit.collider.CompareTag("HitCollider"))
+                l_RayCastHit.collider.GetComponent<HitCollider>().Hit();
+            else
+                CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
+        }
     }
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
     {
@@ -238,10 +250,27 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Item l_Item = other.GetComponent<Item>();
-        if (l_Item != null)
+        if (other.CompareTag("Item"))
         {
-            l_Item.Pick();
+            Item l_Item = other.GetComponent<Item>();
+            if (l_Item.CanPick())
+            {
+                l_Item.Pick();
+            }
+        }else if (other.CompareTag("Deadzone"))
+        {
+            Kill();
         }
+    }
+    void Kill()
+    {
+        GameManager.GetGameManager().RestartLevel();
+    }
+    public void Restart()
+    {
+        m_CharacterController.enabled = false;
+        transform.position = m_startPosition;
+        transform.position = m_startPosition;
+        m_CharacterController.enabled = true;
     }
 }

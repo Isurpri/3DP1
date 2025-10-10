@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealingItem (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8987055325765964120, guid: 1f122f724e3109e4e81edc04966b9eea, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -320,6 +324,10 @@ PrefabInstance:
     - target: {fileID: 8987055325765964120, guid: 1f122f724e3109e4e81edc04966b9eea, type: 3}
       propertyPath: m_Name
       value: HealingItem
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987055325765964120, guid: 1f122f724e3109e4e81edc04966b9eea, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -526,6 +534,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: AmmoItem
       objectReference: {fileID: 0}
+    - target: {fileID: 6645110938537825782, guid: 04c2a9f808d872b40b0ab4f1ca57c5e5, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -582,6 +594,10 @@ PrefabInstance:
     - target: {fileID: 6645110938537825782, guid: 04c2a9f808d872b40b0ab4f1ca57c5e5, type: 3}
       propertyPath: m_Name
       value: AmmoItem (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6645110938537825782, guid: 04c2a9f808d872b40b0ab4f1ca57c5e5, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
