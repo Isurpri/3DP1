@@ -6,4 +6,8 @@ public class HealingItem : Item
         base.Pick();
         GameManager.GetGameManager().GetPlayer().AddHealing(m_Health);
     }
+    public override bool CanPick()
+    {
+        return true;
+    }
 }

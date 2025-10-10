@@ -6,6 +6,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
+    Vector3 m_StartPosition;
+    Quaternion m_StartRotation;
     float m_Yaw;
     float m_Pitch;
     public float m_YawSpeed;
@@ -23,7 +25,8 @@ public class PlayerController : MonoBehaviour
     public float m_Jumpspeed;
     public float m_SpeedMultiplier;
     public int m_Health = 100;
-    public float m_totalAmount = 30;
+    public float m_ActualAmount = 30;
+    public float m_MaximumAmount = 50;
 
     public Camera m_Camera;
 
@@ -58,6 +61,7 @@ public class PlayerController : MonoBehaviour
     public int m_Life = 100;
     void Start()
     {
+        
         m_initialAmmo = m_ChargerAmmoCount;
         SetIdleAnimation();
         var l_Player = GameManager.GetGameManager().GetPlayer();
@@ -67,6 +71,9 @@ public class PlayerController : MonoBehaviour
             l_Player.transform.position = transform.position;
             l_Player.transform.position = transform.position;
             l_Player.m_CharacterController.enabled = true;
+            l_Player.m_StartPosition = transform.position;
+            l_Player.m_StartRotation = transform.rotation;
+
             GameObject.Destroy(gameObject);
             return;
         }
@@ -149,7 +156,7 @@ public class PlayerController : MonoBehaviour
         if (m_ChargerAmmoCount >= m_initialAmmo) //Cargador lleno
             return false;
 
-        if (m_totalAmount <= 0)
+        if (m_ActualAmount <= 0)
             return false;
 
         return true;
@@ -163,15 +170,15 @@ public class PlayerController : MonoBehaviour
         if (needed <= 0)
             return; 
 
-        if (m_totalAmount >= needed)
+        if (m_MaximumAmount >= needed)
         {
-            m_totalAmount -= needed;
+            m_MaximumAmount -= needed;
             m_ChargerAmmoCount += needed;
         }
         else 
         {
-            m_ChargerAmmoCount += m_totalAmount;
-            m_totalAmount = 0;
+            m_ChargerAmmoCount += m_MaximumAmount;
+            m_MaximumAmount = 0;
         }
     }
     bool CanShoot()
@@ -188,7 +195,12 @@ public class PlayerController : MonoBehaviour
         SetShootAnimation();
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         if (Physics.Raycast(l_Ray, out RaycastHit l_RayCastHit, m_ShootMaxDistance, m_ShootLayerMask.value))
-            CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
+        {
+            if (l_RayCastHit.collider.CompareTag("HitCollider"))
+                l_RayCastHit.collider.GetComponent<HitCollider>().Hit();
+            else
+                CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
+        }
     }
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
     {
@@ -226,7 +238,7 @@ public class PlayerController : MonoBehaviour
     }
     public void AddAmmo(int Ammo)
     {
-        m_totalAmount += Ammo;
+        m_MaximumAmount += Ammo;
         /*if (m_ChargerAmmoCount>=m_initialAmmo)
         {
             m_ChargerAmmoCount = m_initialAmmo;
@@ -238,10 +250,24 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Item l_Item = other.GetComponent<Item>();
-        if (l_Item != null)
+        if (other.CompareTag("Item"))
         {
-            l_Item.Pick();
+            Item l_Item = other.GetComponent<Item>();
+            if (l_Item.CanPick())
+                l_Item.Pick();
         }
+        else if (other.CompareTag("Deadzone"))
+            Kill();
+    }
+    void Kill()
+    {
+        GameManager.GetGameManager().RestartLevel();
+    }
+    public void Restart()
+    {
+        m_CharacterController.enabled = false;
+        transform.position = m_StartPosition;
+        transform.rotation = m_StartRotation;
+        m_CharacterController.enabled = true;
     }
 }

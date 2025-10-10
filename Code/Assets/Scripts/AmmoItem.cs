@@ -5,6 +5,9 @@ public class AmmoItem : Item
     {
         base.Pick();
         GameManager.GetGameManager().GetPlayer().AddAmmo(m_AmmoCount);
-
+    }
+    public override bool CanPick()
+    {
+        return true;
     }
 }

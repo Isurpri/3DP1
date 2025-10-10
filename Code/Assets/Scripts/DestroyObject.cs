@@ -1,9 +1,8 @@
 using System.Collections;
 using UnityEngine;
-
 public class DestroyObject : MonoBehaviour
 {
-    public float m_DestroyOnTime=0.3f;
+    public float m_DestroyOnTime = 0.3f;
 
     private void Start()
     {

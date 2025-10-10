@@ -1,8 +1,9 @@
 using UnityEngine;
-public class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour
 {
     public virtual void Pick()
     {
-        GameManager.Destroy(gameObject);
+        GameObject.Destroy(gameObject);
     }
+    public abstract bool CanPick();
 }
