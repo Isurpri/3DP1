@@ -46,4 +46,40 @@ public class GameManager : MonoBehaviour
     {
         m_Player = Player;
     }
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (m_Player != null)
+        {
+            
+            GameObject spawn = GameObject.FindWithTag("SpawnPoint");
+
+            m_Player.m_CharacterController.enabled = false;
+
+            if (spawn != null)
+            {
+                m_Player.transform.position = spawn.transform.position;
+                //m_Player.transform.rotation = spawn.transform.rotation;
+            }
+            else
+            {
+                m_Player.transform.position = Vector3.zero;
+               // m_Player.transform.rotation = Quaternion.identity;
+            }
+
+            m_Player.m_CharacterController.enabled = true;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
 }

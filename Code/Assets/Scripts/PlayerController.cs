@@ -66,6 +66,7 @@ public class PlayerController : MonoBehaviour
     public int m_maxHealth = 150;
     public int m_Shield = 30;
     public int m_maxShield = 50;
+    public float m_score = 0;
     void Start()
     {
         m_initialAmmo = m_ChargerAmmoCount;
@@ -221,6 +222,11 @@ public class PlayerController : MonoBehaviour
         {
             if (l_RayCastHit.collider.CompareTag("HitCollider"))
                 l_RayCastHit.collider.GetComponent<HitCollider>().Hit();
+            else if (l_RayCastHit.collider.CompareTag("Target"))
+            {
+                m_score += l_RayCastHit.collider.GetComponent<TargetCollider>().Hit();
+                UIManager.Instance.SumScore(m_score);
+            }
             else
                 CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
         }
@@ -293,9 +299,27 @@ public class PlayerController : MonoBehaviour
             {
                 l_Item.Pick();
             }
-        }else if (other.CompareTag("DeadZone"))
+        }
+        else if (other.CompareTag("Button"))
+        {
+            m_score = 0;
+            UIManager.Instance.SumScore(m_score);
+        }
+        else if (other.CompareTag("DeadZone"))
         {
             Kill();
+        }
+        if (other.CompareTag("ShootingGallery"))
+        {
+            UIManager.Instance.m_ScoreText.gameObject.SetActive(true);
+        }
+       
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("ShootingGallery"))
+        {
+            UIManager.Instance.m_ScoreText.gameObject.SetActive(false);
         }
     }
     void Kill()

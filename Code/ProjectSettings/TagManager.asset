@@ -8,6 +8,10 @@ TagManager:
   - Item
   - HitCollider
   - DeadZone
+  - SpawnPoint
+  - Target
+  - ShootingGallery
+  - Button
   layers:
   - Default
   - TransparentFX

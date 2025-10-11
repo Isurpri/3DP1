@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 6952006310743322536}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -250,14 +250,14 @@ MonoBehaviour:
   m_Speed: 10
   m_Jumpspeed: 8
   m_SpeedMultiplier: 2
-  m_Health: 100
   m_Camera: {fileID: 8271185483612001251}
   m_ShootMaxDistance: 50
   m_ShootLayerMask:
     serializedVersion: 2
     m_Bits: 7
   m_ShootParticles: {fileID: 721779117152424636, guid: 875c80d10f1276f46912af6893157b68, type: 3}
-  m_totalAmount: 30
+  m_totalAmount: 50
+  m_MaxAmount: 70
   m_ChargerAmmoCount: 24
   m_costAmmoShot: 1
   m_LeftKeyCode: 97
@@ -273,7 +273,11 @@ MonoBehaviour:
   m_IdleAnimationClip: {fileID: 7400000, guid: 832d11ab01f28414e9eb2f84eaf7faab, type: 2}
   m_ReloadAnimationClip: {fileID: 7400000, guid: 929f0115bc898aa469aed62dc8811f4d, type: 2}
   m_ShootAnimationClip: {fileID: 7400000, guid: 1a5f1b838e5814f418d41f79e463531c, type: 2}
-  m_Life: 100
+  m_Health: 100
+  m_maxHealth: 150
+  m_Shield: 20
+  m_maxShield: 50
+  m_score: 0
 --- !u!143 &6952006310743322536
 CharacterController:
   m_ObjectHideFlags: 0

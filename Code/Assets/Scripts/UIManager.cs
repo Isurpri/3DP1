@@ -7,6 +7,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI m_AmmoText;
     public TextMeshProUGUI m_LifeText;
     public TextMeshProUGUI m_ShieldText;
+    public TextMeshProUGUI m_ScoreText;
 
     private void Awake()
     {
@@ -28,4 +29,12 @@ public class UIManager : MonoBehaviour
             m_ShieldText.text = $"{shield}";
         }
     }
+    public void SumScore(float score)
+    {
+        if (m_ScoreText != null)
+        {
+            m_ScoreText.text = $"{score}";
+        }
+    }
+    
 }
