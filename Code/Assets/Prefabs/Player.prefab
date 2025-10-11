@@ -250,12 +250,16 @@ MonoBehaviour:
   m_Speed: 10
   m_Jumpspeed: 8
   m_SpeedMultiplier: 2
-  m_Camera: {fileID: 0}
+  m_Health: 100
+  m_Camera: {fileID: 8271185483612001251}
   m_ShootMaxDistance: 50
   m_ShootLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  m_ShootParticles: {fileID: 0}
+    m_Bits: 7
+  m_ShootParticles: {fileID: 721779117152424636, guid: 875c80d10f1276f46912af6893157b68, type: 3}
+  m_totalAmount: 30
+  m_ChargerAmmoCount: 24
+  m_costAmmoShot: 1
   m_LeftKeyCode: 97
   m_RightKeyCode: 100
   m_DownKeyCode: 115
@@ -266,9 +270,10 @@ MonoBehaviour:
   m_ShootMouseButton: 0
   m_DebugLockAngleKeyCode: 105
   m_Animation: {fileID: 7918961109930864698}
-  m_IdleAnimationClip: {fileID: 0}
-  m_ReloadAnimationClip: {fileID: 0}
-  m_ShootAnimationClip: {fileID: 7918961109930864698}
+  m_IdleAnimationClip: {fileID: 7400000, guid: 832d11ab01f28414e9eb2f84eaf7faab, type: 2}
+  m_ReloadAnimationClip: {fileID: 7400000, guid: 929f0115bc898aa469aed62dc8811f4d, type: 2}
+  m_ShootAnimationClip: {fileID: 7400000, guid: 1a5f1b838e5814f418d41f79e463531c, type: 2}
+  m_Life: 100
 --- !u!143 &6952006310743322536
 CharacterController:
   m_ObjectHideFlags: 0
@@ -414,29 +419,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a950f25de21fff84cbc09877f7fdb0c9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2793234226020575999}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a950f25de21fff84cbc09877f7fdb0c9, type: 3}
---- !u!1 &1611691455208640048 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: a950f25de21fff84cbc09877f7fdb0c9, type: 3}
-  m_PrefabInstance: {fileID: 1917558204631577441}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2793234226020575999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1611691455208640048}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e176696d7d774c428cdad3970715cde, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponcamera: {fileID: 0}
 --- !u!4 &2095915979171042442 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a950f25de21fff84cbc09877f7fdb0c9, type: 3}

@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     public float m_Jumpspeed;
     public float m_SpeedMultiplier;
     public int m_Health = 100;
-    public float m_totalAmount = 30;
 
     public Camera m_Camera;
 
@@ -34,6 +33,10 @@ public class PlayerController : MonoBehaviour
     public float m_ShootMaxDistance = 50.0f;
     public LayerMask m_ShootLayerMask;
     public GameObject m_ShootParticles;
+    
+
+    [Header("Amount")]
+    public float m_totalAmount = 30;
     public float m_ChargerAmmoCount = 24f;
     public float m_costAmmoShot = 1f;
     private float m_initialAmmo;
@@ -63,18 +66,27 @@ public class PlayerController : MonoBehaviour
     {
         m_initialAmmo = m_ChargerAmmoCount;
         SetIdleAnimation();
+
+        // Espera a que el GameManager exista
+        if (GameManager.GetGameManager() == null)
+        {
+            StartCoroutine(WaitForGameManager());
+            return;
+        }
+
         var l_Player = GameManager.GetGameManager().GetPlayer();
         if (l_Player != null)
         {
             l_Player.m_CharacterController.enabled = false;
             l_Player.transform.position = transform.position;
-            l_Player.transform.position = transform.position;
+            l_Player.transform.rotation = transform.rotation;
             l_Player.m_CharacterController.enabled = true;
-            l_Player.m_startPosition=transform.position;
-            l_Player.m_startRotation=transform.rotation;
-            GameObject.Destroy(gameObject);
+            l_Player.m_startPosition = transform.position;
+            l_Player.m_startRotation = transform.rotation;
+            Destroy(gameObject);
             return;
         }
+
         m_startPosition = transform.position;
         m_startRotation = transform.rotation;
         DontDestroyOnLoad(gameObject);
@@ -82,6 +94,11 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    IEnumerator WaitForGameManager()
+    {
+        yield return new WaitUntil(() => GameManager.GetGameManager() != null);
+        Start(); 
+    }
     void Update()
     {
         float l_MouseX = Input.GetAxis("Mouse X");
@@ -144,6 +161,8 @@ public class PlayerController : MonoBehaviour
             Shoot();
         if (CanReload() && Input.GetKeyDown(m_ReloadKeyCode))
             Reload();
+
+        UIManager.Instance.AmmoUI(m_ChargerAmmoCount, m_totalAmount);
     }
     bool CanReload()
     {
@@ -257,7 +276,7 @@ public class PlayerController : MonoBehaviour
             {
                 l_Item.Pick();
             }
-        }else if (other.CompareTag("Deadzone"))
+        }else if (other.CompareTag("DeadZone"))
         {
             Kill();
         }

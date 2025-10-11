@@ -33,9 +33,9 @@ public class GameManager : MonoBehaviour
     //para cambiar entre escenas
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-            SceneManager.LoadSceneAsync("Level2");
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.I))
+            SceneManager.LoadSceneAsync("VictorScene");
+        if (Input.GetKeyDown(KeyCode.O))
             SceneManager.LoadSceneAsync("SampleScene");
     }
     public PlayerController GetPlayer()
