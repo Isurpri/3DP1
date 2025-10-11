@@ -6,6 +6,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
+    Vector3 m_startPosition;
+    Quaternion m_startRotation;
+
     float m_Yaw;
     float m_Pitch;
     public float m_YawSpeed;
@@ -22,8 +25,6 @@ public class PlayerController : MonoBehaviour
     public float m_Speed;
     public float m_Jumpspeed;
     public float m_SpeedMultiplier;
-    public int m_Health = 100;
-    public float m_totalAmount = 30;
 
     public Camera m_Camera;
 
@@ -31,6 +32,11 @@ public class PlayerController : MonoBehaviour
     public float m_ShootMaxDistance = 50.0f;
     public LayerMask m_ShootLayerMask;
     public GameObject m_ShootParticles;
+    
+
+    [Header("Amount")]
+    public float m_totalAmount = 50;
+    public float m_MaxAmount = 70;
     public float m_ChargerAmmoCount = 24f;
     public float m_costAmmoShot = 1f;
     private float m_initialAmmo;
@@ -55,26 +61,48 @@ public class PlayerController : MonoBehaviour
     public AnimationClip m_ReloadAnimationClip;
     public AnimationClip m_ShootAnimationClip;
 
-    public int m_Life = 100;
+    [Header("Life")]
+    public int m_Health = 100;
+    public int m_maxHealth = 150;
+    public int m_Shield = 30;
+    public int m_maxShield = 50;
     void Start()
     {
         m_initialAmmo = m_ChargerAmmoCount;
         SetIdleAnimation();
+
+        // Espera a que el GameManager exista
+        if (GameManager.GetGameManager() == null)
+        {
+            StartCoroutine(WaitForGameManager());
+            return;
+        }
+
         var l_Player = GameManager.GetGameManager().GetPlayer();
         if (l_Player != null)
         {
             l_Player.m_CharacterController.enabled = false;
             l_Player.transform.position = transform.position;
-            l_Player.transform.position = transform.position;
+            l_Player.transform.rotation = transform.rotation;
             l_Player.m_CharacterController.enabled = true;
-            GameObject.Destroy(gameObject);
+            l_Player.m_startPosition = transform.position;
+            l_Player.m_startRotation = transform.rotation;
+            Destroy(gameObject);
             return;
         }
+
+        m_startPosition = transform.position;
+        m_startRotation = transform.rotation;
         DontDestroyOnLoad(gameObject);
         GameManager.GetGameManager().SetPlayer(this);
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    IEnumerator WaitForGameManager()
+    {
+        yield return new WaitUntil(() => GameManager.GetGameManager() != null);
+        Start(); 
+    }
     void Update()
     {
         float l_MouseX = Input.GetAxis("Mouse X");
@@ -137,6 +165,8 @@ public class PlayerController : MonoBehaviour
             Shoot();
         if (CanReload() && Input.GetKeyDown(m_ReloadKeyCode))
             Reload();
+
+        UIManager.Instance.UiVariables(m_ChargerAmmoCount, m_totalAmount, m_Health, m_Shield);
     }
     bool CanReload()
     {
@@ -188,7 +218,12 @@ public class PlayerController : MonoBehaviour
         SetShootAnimation();
         Ray l_Ray = m_Camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0.0f));
         if (Physics.Raycast(l_Ray, out RaycastHit l_RayCastHit, m_ShootMaxDistance, m_ShootLayerMask.value))
-            CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
+        {
+            if (l_RayCastHit.collider.CompareTag("HitCollider"))
+                l_RayCastHit.collider.GetComponent<HitCollider>().Hit();
+            else
+                CreateShootHitParticles(l_RayCastHit.point, l_RayCastHit.normal);
+        }
     }
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
     {
@@ -227,21 +262,51 @@ public class PlayerController : MonoBehaviour
     public void AddAmmo(int Ammo)
     {
         m_totalAmount += Ammo;
-        /*if (m_ChargerAmmoCount>=m_initialAmmo)
+        if (m_totalAmount > m_MaxAmount)
         {
-            m_ChargerAmmoCount = m_initialAmmo;
-        }*/
+            m_totalAmount = m_MaxAmount;
+        }
     }
     public void AddHealing(int Healing)
     {
         m_Health += Healing;
+        if (m_Health > m_maxHealth)
+        {
+            m_Health = m_maxHealth;
+        }
     }
+    public void AddShield(int Shield)
+    {
+        m_Shield += Shield;
+        if (m_Shield > m_maxShield)
+        {
+            m_Shield = m_maxShield;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        Item l_Item = other.GetComponent<Item>();
-        if (l_Item != null)
+        if (other.CompareTag("Item"))
         {
-            l_Item.Pick();
+            Item l_Item = other.GetComponent<Item>();
+            if (l_Item.CanPick())
+            {
+                l_Item.Pick();
+            }
+        }else if (other.CompareTag("DeadZone"))
+        {
+            Kill();
         }
+    }
+    void Kill()
+    {
+        GameManager.GetGameManager().RestartLevel();
+    }
+    public void Restart()
+    {
+        m_CharacterController.enabled = false;
+        transform.position = m_startPosition;
+        transform.rotation = m_startRotation;
+        m_CharacterController.enabled = true;
     }
 }
