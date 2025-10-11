@@ -9,6 +9,10 @@ public class AmmoItem : Item
     }
     public override bool CanPick()
     {
+        if (GameManager.GetGameManager().GetPlayer().m_totalAmount >= GameManager.GetGameManager().GetPlayer().m_MaxAmount)
+        {
+            return false;
+        }
         return true;
     }
 }

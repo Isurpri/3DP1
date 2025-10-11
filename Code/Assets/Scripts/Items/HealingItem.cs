@@ -8,6 +8,11 @@ public class HealingItem : Item
     }
     public override bool CanPick()
     {
+        if (GameManager.GetGameManager().GetPlayer().m_Health >= GameManager.GetGameManager().GetPlayer().m_maxHealth)
+        {
+            return false;
+        }
+
         return true;
     }
 }

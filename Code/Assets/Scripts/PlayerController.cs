@@ -25,7 +25,6 @@ public class PlayerController : MonoBehaviour
     public float m_Speed;
     public float m_Jumpspeed;
     public float m_SpeedMultiplier;
-    public int m_Health = 100;
 
     public Camera m_Camera;
 
@@ -36,7 +35,8 @@ public class PlayerController : MonoBehaviour
     
 
     [Header("Amount")]
-    public float m_totalAmount = 30;
+    public float m_totalAmount = 50;
+    public float m_MaxAmount = 70;
     public float m_ChargerAmmoCount = 24f;
     public float m_costAmmoShot = 1f;
     private float m_initialAmmo;
@@ -61,7 +61,11 @@ public class PlayerController : MonoBehaviour
     public AnimationClip m_ReloadAnimationClip;
     public AnimationClip m_ShootAnimationClip;
 
-    public int m_Life = 100;
+    [Header("Life")]
+    public int m_Health = 100;
+    public int m_maxHealth = 150;
+    public int m_Shield = 30;
+    public int m_maxShield = 50;
     void Start()
     {
         m_initialAmmo = m_ChargerAmmoCount;
@@ -162,7 +166,7 @@ public class PlayerController : MonoBehaviour
         if (CanReload() && Input.GetKeyDown(m_ReloadKeyCode))
             Reload();
 
-        UIManager.Instance.AmmoUI(m_ChargerAmmoCount, m_totalAmount);
+        UIManager.Instance.UiVariables(m_ChargerAmmoCount, m_totalAmount, m_Health, m_Shield);
     }
     bool CanReload()
     {
@@ -258,15 +262,28 @@ public class PlayerController : MonoBehaviour
     public void AddAmmo(int Ammo)
     {
         m_totalAmount += Ammo;
-        /*if (m_ChargerAmmoCount>=m_initialAmmo)
+        if (m_totalAmount > m_MaxAmount)
         {
-            m_ChargerAmmoCount = m_initialAmmo;
-        }*/
+            m_totalAmount = m_MaxAmount;
+        }
     }
     public void AddHealing(int Healing)
     {
         m_Health += Healing;
+        if (m_Health > m_maxHealth)
+        {
+            m_Health = m_maxHealth;
+        }
     }
+    public void AddShield(int Shield)
+    {
+        m_Shield += Shield;
+        if (m_Shield > m_maxShield)
+        {
+            m_Shield = m_maxShield;
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Item"))
@@ -289,7 +306,7 @@ public class PlayerController : MonoBehaviour
     {
         m_CharacterController.enabled = false;
         transform.position = m_startPosition;
-        transform.position = m_startPosition;
+        transform.rotation = m_startRotation;
         m_CharacterController.enabled = true;
     }
 }
