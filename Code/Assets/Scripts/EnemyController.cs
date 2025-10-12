@@ -37,6 +37,12 @@ public class EnemyController : MonoBehaviour
     [Header("Life")]
     public float m_life = 50;
 
+
+    [Header("Alert")]
+    float m_AlertRotateSpeed = 90f;
+    float m_AlertTimer;
+    float m_AlertMaxTime = 3f;
+
     private void Awake()
     {
         m_NavMeshAgent=GetComponent<NavMeshAgent>();
@@ -98,9 +104,27 @@ public class EnemyController : MonoBehaviour
     void SetAlertState()
     {
         m_state = TStates.ALERT;
-        SeePlayer();
+        m_AlertTimer = 0;
     }
     void UpdateAlertState()
+    {
+        transform.Rotate(Vector3.up, m_AlertRotateSpeed * Time.deltaTime);
+        m_AlertTimer += Time.deltaTime;
+
+        if (SeePlayer())
+        {
+            SetChaseState();
+        }
+        if (m_AlertTimer >= m_AlertMaxTime)
+        {
+            SetPatrolState();
+        }
+    }
+    void SetChaseState()
+    {
+        m_state = TStates.CHASE;
+    }
+    void UpdateChaseState()
     {
 
     }
@@ -112,14 +136,7 @@ public class EnemyController : MonoBehaviour
     {
 
     }
-    void SetChaseState()
-    {
-        m_state = TStates.CHASE;
-    }
-    void UpdateChaseState()
-    {
-
-    }
+    
     void SetHitState()
     {
         m_state = TStates.HIT;

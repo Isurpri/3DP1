@@ -66,7 +66,11 @@ public class PlayerController : MonoBehaviour
     public int m_maxHealth = 150;
     public int m_Shield = 30;
     public int m_maxShield = 50;
+
+    [Header("Score")]
     public float m_score = 0;
+    public float m_scoreNecessary = 20;
+    public GameObject m_nextLevel;
     void Start()
     {
         m_initialAmmo = m_ChargerAmmoCount;
@@ -168,6 +172,8 @@ public class PlayerController : MonoBehaviour
             Reload();
 
         UIManager.Instance.UiVariables(m_ChargerAmmoCount, m_totalAmount, m_Health, m_Shield);
+
+        NextLevel();
     }
     bool CanReload()
     {
@@ -313,7 +319,11 @@ public class PlayerController : MonoBehaviour
         {
             UIManager.Instance.m_ScoreText.gameObject.SetActive(true);
         }
-       
+        if (other.CompareTag("NextLevel"))
+        {
+            GameManager.GetGameManager().LoadScene();
+        }
+
     }
     private void OnTriggerExit(Collider other)
     {
@@ -326,11 +336,27 @@ public class PlayerController : MonoBehaviour
     {
         GameManager.GetGameManager().RestartLevel();
     }
-    public void Restart()
+    /*public void Restart() 
+    { 
+        m_CharacterController.enabled = false; 
+        transform.position = m_startPosition; 
+        transform.rotation = m_startRotation; 
+        m_CharacterController.enabled = true; 
+    }*/
+    
+
+    public void NextLevel()
     {
-        m_CharacterController.enabled = false;
-        transform.position = m_startPosition;
-        transform.rotation = m_startRotation;
-        m_CharacterController.enabled = true;
+        if (m_nextLevel!=null)
+        {
+            if (m_score >= m_scoreNecessary)
+            {
+                m_nextLevel.SetActive(true);
+            }
+            else
+            {
+                m_nextLevel.SetActive(false);
+            }
+        }
     }
 }

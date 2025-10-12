@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    static  GameManager m_GameManager;
+    static GameManager m_GameManager;
     PlayerController m_Player;
     public Transform m_DestroyObjects;
     void Start()
@@ -22,21 +22,53 @@ public class GameManager : MonoBehaviour
     {
         return m_GameManager;
     }
+    /*public void RestartLevel() 
+    { 
+        for (int i = 0; i < m_DestroyObjects.childCount; ++i) 
+        { 
+            GameObject.Destroy(m_DestroyObjects.GetChild(i).gameObject); 
+        } 
+        m_Player.Restart(); 
+    }*/
     public void RestartLevel()
     {
         for (int i = 0; i < m_DestroyObjects.childCount; ++i)
         {
             GameObject.Destroy(m_DestroyObjects.GetChild(i).gameObject);
         }
-        m_Player.Restart();
+
+        if (m_Player != null)
+        {
+            GameObject spawn = GameObject.FindWithTag("SpawnPoint");
+
+            m_Player.m_CharacterController.enabled = false;
+
+            if (spawn != null)
+            {
+                m_Player.transform.position = spawn.transform.position;
+                m_Player.transform.rotation = spawn.transform.rotation;
+            }
+            else
+            {
+                m_Player.transform.position = Vector3.zero;
+                m_Player.transform.rotation = Quaternion.identity;
+            }
+
+            m_Player.m_CharacterController.enabled = true;
+        }
     }
     //para cambiar entre escenas
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
-            SceneManager.LoadSceneAsync("VictorScene");
+            LoadScene();
+            //SceneManager.LoadSceneAsync("VictorScene");
         if (Input.GetKeyDown(KeyCode.O))
             SceneManager.LoadSceneAsync("SampleScene");
+    }
+    public void LoadScene()
+    {
+        SceneManager.LoadSceneAsync("VictorScene");
     }
     public PlayerController GetPlayer()
     {

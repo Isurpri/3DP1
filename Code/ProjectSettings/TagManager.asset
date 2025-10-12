@@ -12,6 +12,7 @@ TagManager:
   - Target
   - ShootingGallery
   - Button
+  - NextLevel
   layers:
   - Default
   - TransparentFX
