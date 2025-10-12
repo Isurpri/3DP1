@@ -24,7 +24,7 @@ public class EnemyController : MonoBehaviour
 
     [Header("Patrol")]
     public List<Transform> m_PatrolPosition;
-    int m_currentPatrolPos;
+    public int m_currentPatrolPos;
 
     [Header("Sight")]
     public float m_EyesHeight = 1.8f;
@@ -98,6 +98,7 @@ public class EnemyController : MonoBehaviour
     void SetAlertState()
     {
         m_state = TStates.ALERT;
+        SeePlayer();
     }
     void UpdateAlertState()
     {
