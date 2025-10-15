@@ -334,6 +334,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.83752
       objectReference: {fileID: 0}
+    - target: {fileID: 5588775243714442844, guid: 04edc6673bb79584aa2bc8914ddfe2ab, type: 3}
+      propertyPath: m_TagString
+      value: Button
+      objectReference: {fileID: 0}
     - target: {fileID: 6477950223714619323, guid: 04edc6673bb79584aa2bc8914ddfe2ab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 74.8
@@ -381,7 +385,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5588775243714442844, guid: 04edc6673bb79584aa2bc8914ddfe2ab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2116351888}
+    - targetCorrespondingSourceObject: {fileID: 5588775243714442844, guid: 04edc6673bb79584aa2bc8914ddfe2ab, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2116351887}
   m_SourcePrefab: {fileID: 100100000, guid: 04edc6673bb79584aa2bc8914ddfe2ab, type: 3}
 --- !u!1001 &347694496
 PrefabInstance:
@@ -710,7 +720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &656678028
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1468,6 +1478,45 @@ Transform:
   - {fileID: 6086897710357751331}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2116351883 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5588775243714442844, guid: 04edc6673bb79584aa2bc8914ddfe2ab, type: 3}
+  m_PrefabInstance: {fileID: 238734371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2116351887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116351883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1014a36af9331634e9083e5481b2c4d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Listargets: []
+--- !u!65 &2116351888
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2116351883}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.011286227, y: 0.011286228, z: 0.019734014}
+  m_Center: {x: 0.0000001766256, y: -0.00000012525653, z: 0.008984158}
 --- !u!1 &65632600545380293
 GameObject:
   m_ObjectHideFlags: 0
