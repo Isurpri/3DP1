@@ -34,14 +34,19 @@ public class EnemyController : MonoBehaviour
     [Header("Ears")]
     public float m_MaxEarDistance = 3f;
 
-    [Header("Life")]
-    public float m_life = 50;
-
-
     [Header("Alert")]
     float m_AlertRotateSpeed = 90f;
     float m_AlertTimer;
     float m_AlertMaxTime = 3f;
+
+
+    [Header("Life")]
+    public float m_life = 50;
+    public float m_Maxlife = 50;
+
+    [Header("LifeBar")]
+    public Transform m_LifeBarTransform;
+    public LifeBarElementUI m_LifeBarElementUI;
 
     private void Awake()
     {
@@ -77,6 +82,11 @@ public class EnemyController : MonoBehaviour
                 UpdateDieState();
                 break;
         }
+        UpdateLifeBarUI();
+    }
+    void UpdateLifeBarUI()
+    {
+        m_LifeBarElementUI.Show(m_LifeBarTransform.position, m_life/(float)m_Maxlife);
     }
     void SetIdleState()
     {

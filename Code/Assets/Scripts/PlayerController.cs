@@ -334,8 +334,12 @@ public class PlayerController : MonoBehaviour
     }
     void Kill()
     {
-        GameManager.GetGameManager().RestartLevel();
+        GameManager.GetGameManager().m_fade.FadeIn(() =>
+        {
+            GameManager.GetGameManager().RestartLevel();
+        });
     }
+
     /*public void Restart() 
     { 
         m_CharacterController.enabled = false; 
