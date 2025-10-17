@@ -21141,6 +21141,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8271185483612001251, guid: 4e0e01ef4f161b840867b73faaaf8080, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 119
+      objectReference: {fileID: 0}
     - target: {fileID: 8738005085914332443, guid: 4e0e01ef4f161b840867b73faaaf8080, type: 3}
       propertyPath: m_Shield
       value: 20
@@ -21152,6 +21156,10 @@ PrefabInstance:
     - target: {fileID: 8738005085914332443, guid: 4e0e01ef4f161b840867b73faaaf8080, type: 3}
       propertyPath: m_totalAmount
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8738005085914332443, guid: 4e0e01ef4f161b840867b73faaaf8080, type: 3}
+      propertyPath: m_ShootLayerMask.m_Bits
+      value: 135
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

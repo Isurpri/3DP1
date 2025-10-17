@@ -48,13 +48,32 @@ public class EnemyController : MonoBehaviour
     public Transform m_LifeBarTransform;
     public LifeBarElementUI m_LifeBarElementUI;
 
+    [Header("Dead")]
+    public List<MeshRenderer> m_MeshesRend;
+    float m_currenTime;
+    public float m_DieTime = 1.5f;
     private void Awake()
     {
         m_NavMeshAgent=GetComponent<NavMeshAgent>();
     }
     private void Start()
     {
+        InitFade();
         SetIdleState();
+    }
+    void InitFade()
+    {
+        foreach (MeshRenderer meshRenderer in m_MeshesRend)
+        {
+            meshRenderer.sharedMaterial = Material.Instantiate(meshRenderer.sharedMaterial);
+        }
+    }
+    void SetFadeValue(float Pct)
+    {
+        foreach (MeshRenderer meshRenderer in m_MeshesRend)
+        {
+            meshRenderer.sharedMaterial.SetFloat("_Cutoff", Pct);
+        }
     }
     private void Update()
     {
@@ -91,6 +110,7 @@ public class EnemyController : MonoBehaviour
     void SetIdleState()
     {
         m_state = TStates.IDLE;
+        SetFadeValue(0.0f);
     }
     void UpdateIdleState()
     {
@@ -158,11 +178,15 @@ public class EnemyController : MonoBehaviour
     void SetDieState()
     {
         m_state = TStates.DIE;
-        gameObject.SetActive(false);
+        m_currenTime = 0.0f;
     }
     void UpdateDieState()
     {
-
+        m_currenTime += Time.deltaTime;
+        float l_Pct = Mathf.Min(1.0f, m_currenTime / m_DieTime);
+        SetFadeValue(l_Pct);
+        if(l_Pct ==1.0f)
+            gameObject.SetActive(false);
     }
 
     void SetNextChasePosition()

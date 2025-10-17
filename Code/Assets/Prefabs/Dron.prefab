@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 1394174992751452461}
   - component: {fileID: 3932928815117093966}
   - component: {fileID: 3217671636586744958}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,8 +223,8 @@ GameObject:
   - component: {fileID: 3764020488949704556}
   - component: {fileID: 5270141525303415402}
   - component: {fileID: 3220337996911753829}
-  m_Layer: 0
-  m_Name: Sphere (2)
+  m_Layer: 7
+  m_Name: HitColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -607,8 +607,8 @@ GameObject:
   - component: {fileID: 3276101871150465750}
   - component: {fileID: 5379351758136202292}
   - component: {fileID: 6637343884871549055}
-  m_Layer: 0
-  m_Name: Sphere (3)
+  m_Layer: 7
+  m_Name: HitColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -730,7 +730,7 @@ GameObject:
   - component: {fileID: 5466497670200514739}
   - component: {fileID: 7573208657541273528}
   - component: {fileID: 7992843671107771734}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: HeadCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -919,6 +919,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  m_currentPatrolPos: 0
   m_EyesHeight: 1.8
   m_SightAngle: 60
   m_SightLayerMask:
@@ -926,6 +927,16 @@ MonoBehaviour:
     m_Bits: 1
   m_MaxEarDistance: 3
   m_life: 50
+  m_Maxlife: 50
+  m_LifeBarTransform: {fileID: 0}
+  m_LifeBarElementUI: {fileID: 0}
+  m_MeshesRend:
+  - {fileID: 8692751076530124968}
+  - {fileID: 5993630292565566580}
+  - {fileID: 929412430276380003}
+  - {fileID: 5333450189449866889}
+  - {fileID: 3769615098199650543}
+  m_DieTime: 1.5
 --- !u!1 &7755570890015881767
 GameObject:
   m_ObjectHideFlags: 0
