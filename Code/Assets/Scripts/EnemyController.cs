@@ -4,8 +4,11 @@ using System.Numerics;
 using System.Transactions;
 using UnityEngine;
 using UnityEngine.AI;
+<<<<<<< Updated upstream
 using Vector3 = UnityEngine.Vector3;
 
+=======
+>>>>>>> Stashed changes
 public class EnemyController : MonoBehaviour
 {
     enum TState
@@ -38,14 +41,34 @@ public class EnemyController : MonoBehaviour
     public float m_MaxEarDistance = 3.0f;
 
     [Header("Life")]
+<<<<<<< Updated upstream
     public int m_Life = 50;
     
+=======
+    public float m_life = 50;
+    public float m_MaxLife;
+
+    [Header("LifeBar")]
+    public Transform m_LiferBarTransform;
+    public LifeBarElementUI m_LifeBarElementUI;
+   
+    [Header("Alert")]
+    float m_AlertRotateSpeed = 90f;
+    float m_AlertTimer;
+    float m_AlertMaxTime = 3f;
+
+    private void Awake()
+    {
+        m_NavMeshAgent=GetComponent<NavMeshAgent>();
+    }
+>>>>>>> Stashed changes
     private void Start()
     {
         SetIdleState();
     }
     private void Update()
     {
+<<<<<<< Updated upstream
         switch (m_State)
         {
             case TState.IDLE:
@@ -56,6 +79,21 @@ public class EnemyController : MonoBehaviour
                 break;
             case TState.PATROL:
                 UpdatePatrolState();
+=======
+        switch (m_state)
+        {
+            case TStates.IDLE:
+                UpdateIdleState();
+                break;
+            case TStates.PATROL:
+                UpdatePatrolState();
+                break;
+            case TStates.ALERT:
+                UpdateAlertState();
+                break;
+            case TStates.ATTACK:
+                UpdateAttackState();
+>>>>>>> Stashed changes
                 break;
             case TState.ATTACK:
                 UpdateAttackState();
@@ -70,6 +108,11 @@ public class EnemyController : MonoBehaviour
                 UpdateDieState();
                 break;
         }
+        UpdateLifeBarUi();
+    }
+    void UpdateLifeBarUi()
+    {
+        m_LifeBarElementUI.Show(m_LiferBarTransform.position, m_life/(float)m_MaxLife);
     }
 
     void SetIdleState()
