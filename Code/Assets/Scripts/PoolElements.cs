@@ -18,12 +18,12 @@ public class PoolElements
     }
     public GameObject GetNextElement()
     {
-        GameObject l_gameObject = m_Elements[m_CurrentElementId];
+        GameObject l_GameObject = m_Elements[m_CurrentElementId];
         ++m_CurrentElementId;
         if (m_CurrentElementId>=m_Elements.Count)
         {
             m_CurrentElementId = 0;
         }
-        return l_gameObject;
+        return l_GameObject;
     }
 }
