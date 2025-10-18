@@ -9,17 +9,30 @@ public class GameManager : MonoBehaviour
     PlayerController m_Player;
     public Transform m_DestroyObjects;
     public Fade m_fade;
+    public Transform m_PersistentParticlesParent;
 
-    void Start()
+    void Awake()
     {
         if (m_GameManager != null)
         {
-            GameObject.Destroy(gameObject);
+            Destroy(gameObject);
             return;
         }
+
         m_GameManager = this;
         DontDestroyOnLoad(gameObject);
+
+        if (m_PersistentParticlesParent == null)
+        {
+            GameObject particlesContainer = GameObject.Find("PersistentParticles");
+            if (particlesContainer == null)
+                particlesContainer = new GameObject("PersistentParticles");
+
+            particlesContainer.transform.SetParent(transform);
+            m_PersistentParticlesParent = particlesContainer.transform;
+        }
     }
+
     public static GameManager GetGameManager()
     {
         return m_GameManager;

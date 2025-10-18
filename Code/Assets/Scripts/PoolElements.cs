@@ -9,9 +9,10 @@ public class PoolElements
     public void Init(int Count,GameObject PrefabElement)
     {
         m_Elements=new List<GameObject> ();
+        Transform parent = GameManager.GetGameManager().m_PersistentParticlesParent;
         for (int i = 0; i < Count; i++)
         {
-            GameObject l_GameObjects = GameObject.Instantiate(PrefabElement);
+            GameObject l_GameObjects = GameObject.Instantiate(PrefabElement,parent);
             l_GameObjects.SetActive(false);
             m_Elements.Add(l_GameObjects);
         }
