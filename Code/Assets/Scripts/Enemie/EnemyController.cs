@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour
         DIE
     }
     public TStates m_state;
+    private TStates m_previousState;
     NavMeshAgent m_NavMeshAgent;
     public Transform m_target;
 
@@ -50,6 +51,10 @@ public class EnemyController : MonoBehaviour
     [Header("Life")]
     public float m_life = 50;
     public float m_Maxlife = 50;
+
+    [Header("Hit")]
+    private float m_HitDuration = 0.5f;
+    private float m_HitTimer = 0f;
 
     [Header("LifeBar")]
     public Transform m_LifeBarTransform;
@@ -213,10 +218,25 @@ public class EnemyController : MonoBehaviour
     void SetHitState()
     {
         m_state = TStates.HIT;
+        m_HitTimer = 0f;
+        m_NavMeshAgent.isStopped = true;
     }
     void UpdateHitState()
     {
+        m_HitTimer += Time.deltaTime;
 
+        if (m_HitTimer >= m_HitDuration)
+        {
+            if (m_previousState == TStates.IDLE || m_previousState == TStates.PATROL)
+                SetAlertState();
+            else
+                SetPreviousState();
+        }
+    }
+    void SetPreviousState()
+    {
+        m_state = m_previousState;
+        m_NavMeshAgent.isStopped = false;
     }
     void SetDieState()
     {
@@ -311,5 +331,13 @@ public class EnemyController : MonoBehaviour
         m_life -=damage;
         if (m_life <= 0)
             SetDieState();
+
+        if (m_state == TStates.DIE || m_state == TStates.HIT)
+            return;
+
+        m_previousState = m_state;
+
+        SetHitState();
     }
 }
+
