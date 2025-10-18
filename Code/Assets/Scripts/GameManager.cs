@@ -55,7 +55,9 @@ public class GameManager : MonoBehaviour
         if (m_Player != null)
         {
             GameObject spawn = GameObject.FindWithTag("SpawnPoint");
-
+            m_Player.m_Health = m_Player.m_initialHealth;
+            m_Player.m_Shield = m_Player.m_initialShield;
+            m_Player.m_ChargerAmmoCount = m_Player.m_initialAmmo;
             m_Player.m_CharacterController.enabled = false;
 
             if (spawn != null)

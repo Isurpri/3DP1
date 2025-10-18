@@ -278,6 +278,8 @@ MonoBehaviour:
   m_Shield: 20
   m_maxShield: 50
   m_score: 0
+  m_scoreNecessary: 20
+  m_nextLevel: {fileID: 0}
 --- !u!143 &6952006310743322536
 CharacterController:
   m_ObjectHideFlags: 0

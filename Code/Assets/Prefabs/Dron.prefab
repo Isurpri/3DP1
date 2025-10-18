@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 3217671636586744958}
   m_Layer: 7
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: HitCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -208,8 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710a7643802aca942ae0a804dcb5757b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_damage: 0
-  m_Enemy: {fileID: 0}
+  m_damage: 10
+  m_Enemy: {fileID: 3841673881987348902}
 --- !u!1 &3686581135769832200
 GameObject:
   m_ObjectHideFlags: 0
@@ -225,7 +225,7 @@ GameObject:
   - component: {fileID: 3220337996911753829}
   m_Layer: 7
   m_Name: HitColliders
-  m_TagString: Untagged
+  m_TagString: HitCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331,8 +331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710a7643802aca942ae0a804dcb5757b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_damage: 0
-  m_Enemy: {fileID: 0}
+  m_damage: 10
+  m_Enemy: {fileID: 3841673881987348902}
 --- !u!1 &4400007133968712075
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,7 +609,7 @@ GameObject:
   - component: {fileID: 6637343884871549055}
   m_Layer: 7
   m_Name: HitColliders
-  m_TagString: Untagged
+  m_TagString: HitCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -715,8 +715,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710a7643802aca942ae0a804dcb5757b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_damage: 0
-  m_Enemy: {fileID: 0}
+  m_damage: 10
+  m_Enemy: {fileID: 3841673881987348902}
 --- !u!1 &6288416840487471469
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,7 +732,7 @@ GameObject:
   - component: {fileID: 7992843671107771734}
   m_Layer: 7
   m_Name: HeadCollider
-  m_TagString: Untagged
+  m_TagString: HitCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -838,8 +838,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 710a7643802aca942ae0a804dcb5757b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_damage: 0
-  m_Enemy: {fileID: 0}
+  m_damage: 30
+  m_Enemy: {fileID: 3841673881987348902}
 --- !u!1 &7522342984932860798
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,20 +912,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68457ea891f2a3342b78e5f5515db6d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_state: 0
   m_target: {fileID: 2071930108076408565, guid: 4e0e01ef4f161b840867b73faaaf8080, type: 3}
   m_MinDistanceToAttack: 5
+  m_MaxDistanceToAttack: 15
   m_PatrolPosition:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   m_currentPatrolPos: 0
-  m_EyesHeight: 1.8
+  m_EyesHeight: 0.5
   m_SightAngle: 60
   m_SightLayerMask:
     serializedVersion: 2
     m_Bits: 1
   m_MaxEarDistance: 3
+  m_AlertRotateSpeed: 90
+  m_AlertMaxTime: 3
+  m_ShootDistanceMax: 10
+  m_FireRate: 1
+  m_Bullet: {fileID: 841303891392405268, guid: 75a3a4fa51362154487e635c29237448, type: 3}
   m_life: 50
   m_Maxlife: 50
   m_LifeBarTransform: {fileID: 0}

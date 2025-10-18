@@ -108,11 +108,11 @@ public class EnemyController : MonoBehaviour
                 UpdateDieState();
                 break;
         }
-        UpdateLifeBarUI();
+        //UpdateLifeBarUI();
     }
     void UpdateLifeBarUI()
     {
-        m_LifeBarElementUI.Show(m_LifeBarTransform.position, m_life/(float)m_Maxlife);
+        //m_LifeBarElementUI.Show(m_LifeBarTransform.position, m_life/(float)m_Maxlife);
     }
     void SetIdleState()
     {
@@ -206,7 +206,6 @@ public class EnemyController : MonoBehaviour
         {
             ShootPlayer(l_PlayerPos);
             m_FireCooldown = 0;
-            Debug.Log("Disparo");
 
         }
     }
@@ -264,11 +263,12 @@ public class EnemyController : MonoBehaviour
 
         Vector3 direction = (targetPos - bullet.transform.position).normalized;
 
-        BulletEnemie ScriptBullet = m_Bullet.GetComponent<BulletEnemie>();
+        BulletEnemie ScriptBullet = bullet.GetComponent<BulletEnemie>();
 
         ScriptBullet.Init(direction);
         Destroy(bullet, ScriptBullet.m_timeToDestroy);
     }
+
     void FaceTarget(Vector3 targetPos)
     {
         Vector3 direction = (targetPos - transform.position).normalized;

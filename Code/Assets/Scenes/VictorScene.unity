@@ -617,6 +617,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &902005765 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+  m_PrefabInstance: {fileID: 672012258822629829}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68457ea891f2a3342b78e5f5515db6d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &987506911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1252,25 +1263,37 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3217671636586744958, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_Enemy
+      value: 
+      objectReference: {fileID: 902005765}
+    - target: {fileID: 3217671636586744958, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3220337996911753829, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_Enemy
+      value: 
+      objectReference: {fileID: 902005765}
+    - target: {fileID: 3220337996911753829, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_damage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3272296156141706473, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_TagString
+      value: HitCollider
+      objectReference: {fileID: 0}
+    - target: {fileID: 3686581135769832200, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_TagString
+      value: HitCollider
+      objectReference: {fileID: 0}
     - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
       propertyPath: m_Bullet
       value: 
       objectReference: {fileID: 841303891392405268, guid: 75a3a4fa51362154487e635c29237448, type: 3}
     - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
-      propertyPath: m_FireRate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
       propertyPath: m_EyesHeight
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
-      propertyPath: m_MaxDistanceToAttack
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
-      propertyPath: m_SightLayerMask.m_Bits
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
       propertyPath: 'm_PatrolPosition.Array.data[0]'
@@ -1288,6 +1311,22 @@ PrefabInstance:
       propertyPath: 'm_PatrolPosition.Array.data[3]'
       value: 
       objectReference: {fileID: 106399124}
+    - target: {fileID: 5260329609313965856, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_TagString
+      value: HitCollider
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288416840487471469, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_TagString
+      value: HitCollider
+      objectReference: {fileID: 0}
+    - target: {fileID: 6637343884871549055, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_Enemy
+      value: 
+      objectReference: {fileID: 902005765}
+    - target: {fileID: 6637343884871549055, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_damage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7344832081271325220, guid: da44b075359b41e49a2a94d27263840e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1331,6 +1370,14 @@ PrefabInstance:
     - target: {fileID: 7522342984932860798, guid: da44b075359b41e49a2a94d27263840e, type: 3}
       propertyPath: m_Name
       value: Dron
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992843671107771734, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_Enemy
+      value: 
+      objectReference: {fileID: 902005765}
+    - target: {fileID: 7992843671107771734, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_damage
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

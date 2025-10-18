@@ -18,4 +18,26 @@ public class BulletEnemie : MonoBehaviour
     {
         transform.position += m_Direction * m_speed * Time.deltaTime;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+
+            PlayerController player = other.GetComponent<PlayerController>();
+            if (player == null)
+                player = other.GetComponentInParent<PlayerController>();
+
+            if (player != null)
+            {
+                player.TakeDamage(m_damage);
+            }
+
+            Destroy(gameObject);
+        }
+        else if (!other.CompareTag("Enemy") && !other.isTrigger)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     public float m_MaxAmount = 70;
     public float m_ChargerAmmoCount = 24f;
     public float m_costAmmoShot = 1f;
-    private float m_initialAmmo;
+    public float m_initialAmmo;
     bool isReloading = false;
 
     [Header("Input")]
@@ -62,10 +62,12 @@ public class PlayerController : MonoBehaviour
     public AnimationClip m_ShootAnimationClip;
 
     [Header("Life")]
-    public int m_Health = 100;
-    public int m_maxHealth = 150;
-    public int m_Shield = 30;
-    public int m_maxShield = 50;
+    public float m_Health = 100;
+    public float m_initialHealth;
+    public float m_maxHealth = 150;
+    public float m_Shield = 30;
+    public float m_initialShield;
+    public float m_maxShield = 50;
 
     [Header("Score")]
     public float m_score = 0;
@@ -73,6 +75,9 @@ public class PlayerController : MonoBehaviour
     public GameObject m_nextLevel;
     void Start()
     {
+        m_initialHealth = m_Health;
+        m_initialShield = m_Shield;
+
         m_PoolParticles=new PoolElements();
         m_PoolParticles.Init(25,m_ShootParticles);
 
@@ -365,5 +370,32 @@ public class PlayerController : MonoBehaviour
                 m_nextLevel.SetActive(false);
             }
         }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        if (m_Shield>0)
+        {
+            float shieldDamage = damage * 0.75f;
+            float healthdamage = damage * 0.25f;
+
+            m_Shield -= Mathf.RoundToInt(shieldDamage);
+            m_Health -= Mathf.RoundToInt(healthdamage);
+
+            if (m_Shield < 0)  
+                m_Shield = 0;
+        }
+        else
+        {
+            m_Health -= damage;
+        }
+
+        if (m_Health <= 0)
+        {
+            m_Health = 0;
+            Kill();
+        }
+        UIManager.Instance.UiVariables(m_ChargerAmmoCount, m_totalAmount, m_Health, m_Shield);
+
     }
 }
