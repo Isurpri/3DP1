@@ -1,11 +1,12 @@
-using System.Collections.Generic;
 using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class EnemyController : MonoBehaviour
 {
-    enum TStates
+    public enum TStates
     {
         IDLE=0,
         PATROL,
@@ -15,19 +16,20 @@ public class EnemyController : MonoBehaviour
         HIT,
         DIE
     }
-    TStates m_state;
+    public TStates m_state;
     NavMeshAgent m_NavMeshAgent;
     public Transform m_target;
 
-    [Header("Distance")]
+    [Header("DistanceChace")]
     public float m_MinDistanceToAttack = 5f;
+    public float m_MaxDistanceToAttack = 15f;
 
     [Header("Patrol")]
     public List<Transform> m_PatrolPosition;
     public int m_currentPatrolPos;
 
     [Header("Sight")]
-    public float m_EyesHeight = 1.8f;
+    public float m_EyesHeight = 0.5f;
     public float m_SightAngle = 60f;
     public LayerMask m_SightLayerMask;
 
@@ -39,10 +41,15 @@ public class EnemyController : MonoBehaviour
 
 
     [Header("Alert")]
-    float m_AlertRotateSpeed = 90f;
+    public float m_AlertRotateSpeed = 90f;
     float m_AlertTimer;
-    float m_AlertMaxTime = 3f;
+    public float m_AlertMaxTime = 3f;
 
+    [Header("Attack")]
+    public float m_ShootDistanceMax = 10;
+    public float m_FireRate = 1;
+    float m_FireCooldown;
+    public GameObject m_Bullet;
     private void Awake()
     {
         m_NavMeshAgent=GetComponent<NavMeshAgent>();
@@ -104,7 +111,11 @@ public class EnemyController : MonoBehaviour
     void SetAlertState()
     {
         m_state = TStates.ALERT;
-        m_AlertTimer = 0;
+        m_AlertTimer = 0f;
+
+        m_NavMeshAgent.isStopped = true;
+        m_NavMeshAgent.ResetPath();
+
     }
     void UpdateAlertState()
     {
@@ -113,9 +124,9 @@ public class EnemyController : MonoBehaviour
 
         if (SeePlayer())
         {
-            SetChaseState();
+           SetChaseState();
         }
-        if (m_AlertTimer >= m_AlertMaxTime)
+        else if (m_AlertTimer >= m_AlertMaxTime)
         {
             SetPatrolState();
         }
@@ -126,7 +137,24 @@ public class EnemyController : MonoBehaviour
     }
     void UpdateChaseState()
     {
+        Vector3 l_PlayerPos = GameManager.GetGameManager().GetPlayer().transform.position;
+        float l_Distance = Vector3.Distance(transform.position, l_PlayerPos);
 
+        if (l_Distance > m_MaxDistanceToAttack)
+        {
+            SetPatrolState();
+        }
+
+        if (l_Distance <= m_MinDistanceToAttack)
+        {
+            m_NavMeshAgent.isStopped = true; 
+            FaceTarget(l_PlayerPos);  
+            SetAttackState();
+        }
+
+        m_NavMeshAgent.isStopped = false;
+        m_NavMeshAgent.destination = SetNextChasePosition();
+        FaceTarget(l_PlayerPos);
     }
     void SetAttackState()
     {
@@ -134,7 +162,23 @@ public class EnemyController : MonoBehaviour
     }
     void UpdateAttackState()
     {
+        Vector3 l_PlayerPos = GameManager.GetGameManager().GetPlayer().transform.position;
+        float l_Distance = Vector3.Distance(transform.position, l_PlayerPos);
+        if (m_ShootDistanceMax<l_Distance)
+        {
+            SetChaseState();
+        }
+        
+        FaceTarget(l_PlayerPos);
 
+        m_FireCooldown += Time.deltaTime;
+        if (m_FireCooldown>=m_FireRate)
+        {
+            ShootPlayer(l_PlayerPos);
+            m_FireCooldown = 0;
+            Debug.Log("Disparo");
+
+        }
     }
     
     void SetHitState()
@@ -155,15 +199,15 @@ public class EnemyController : MonoBehaviour
 
     }
 
-    void SetNextChasePosition()
+    Vector3 SetNextChasePosition()
     {
         Vector3 l_PlayerPosition = GameManager.GetGameManager().GetPlayer().transform.position;
-        Vector3 l_direction= l_PlayerPosition -transform.position;
+        Vector3 l_direction = (l_PlayerPosition - transform.position).normalized;
         l_direction.Normalize();
-        Vector3 l_Position = l_PlayerPosition-l_direction*m_MinDistanceToAttack;
-        m_NavMeshAgent.destination = l_Position;
+        Vector3 l_Position = l_PlayerPosition - l_direction * m_MinDistanceToAttack;
+        return l_Position;
     }
- 
+    
 
     void MoveToNextPatrolPosition()
     {
@@ -176,7 +220,31 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void ShootPlayer(Vector3 targetPos)
+    {
+        if (m_Bullet==null)
+        {
+            return;
+        }
+        GameObject bullet = Instantiate(m_Bullet, transform.position + transform.forward,Quaternion.identity);
 
+        Vector3 direction = (targetPos - bullet.transform.position).normalized;
+
+        BulletEnemie ScriptBullet = m_Bullet.GetComponent<BulletEnemie>();
+
+        ScriptBullet.Init(direction);
+        Destroy(bullet, ScriptBullet.m_timeToDestroy);
+    }
+    void FaceTarget(Vector3 targetPos)
+    {
+        Vector3 direction = (targetPos - transform.position).normalized;
+        direction.y = 0;
+        if (direction!=Vector3.zero)
+        {
+            Quaternion lookPlayer = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookPlayer, Time.deltaTime * 5f);
+        }
+    }
     bool SeePlayer()
     {
         Vector3 l_PlayerPosition = GameManager.GetGameManager().GetPlayer().transform.position;

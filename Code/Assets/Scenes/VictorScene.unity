@@ -1253,6 +1253,26 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_Bullet
+      value: 
+      objectReference: {fileID: 841303891392405268, guid: 75a3a4fa51362154487e635c29237448, type: 3}
+    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_FireRate
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_EyesHeight
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_MaxDistanceToAttack
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_SightLayerMask.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
       propertyPath: 'm_PatrolPosition.Array.data[0]'
       value: 
       objectReference: {fileID: 1008935827}
