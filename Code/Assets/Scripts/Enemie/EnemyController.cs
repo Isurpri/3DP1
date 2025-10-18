@@ -36,10 +36,6 @@ public class EnemyController : MonoBehaviour
     [Header("Ears")]
     public float m_MaxEarDistance = 3f;
 
-    [Header("Life")]
-    public float m_life = 50;
-
-
     [Header("Alert")]
     public float m_AlertRotateSpeed = 90f;
     float m_AlertTimer;
@@ -50,13 +46,41 @@ public class EnemyController : MonoBehaviour
     public float m_FireRate = 1;
     float m_FireCooldown;
     public GameObject m_Bullet;
+
+    [Header("Life")]
+    public float m_life = 50;
+    public float m_Maxlife = 50;
+
+    [Header("LifeBar")]
+    public Transform m_LifeBarTransform;
+    public LifeBarElementUI m_LifeBarElementUI;
+
+    [Header("Dead")]
+    public List<MeshRenderer> m_MeshesRend;
+    float m_currenTime;
+    public float m_DieTime = 1.5f;
     private void Awake()
     {
         m_NavMeshAgent=GetComponent<NavMeshAgent>();
     }
     private void Start()
     {
+        InitFade();
         SetIdleState();
+    }
+    void InitFade()
+    {
+        foreach (MeshRenderer meshRenderer in m_MeshesRend)
+        {
+            meshRenderer.sharedMaterial = Material.Instantiate(meshRenderer.sharedMaterial);
+        }
+    }
+    void SetFadeValue(float Pct)
+    {
+        foreach (MeshRenderer meshRenderer in m_MeshesRend)
+        {
+            meshRenderer.sharedMaterial.SetFloat("_Cutoff", Pct);
+        }
     }
     private void Update()
     {
@@ -84,10 +108,16 @@ public class EnemyController : MonoBehaviour
                 UpdateDieState();
                 break;
         }
+        UpdateLifeBarUI();
+    }
+    void UpdateLifeBarUI()
+    {
+        m_LifeBarElementUI.Show(m_LifeBarTransform.position, m_life/(float)m_Maxlife);
     }
     void SetIdleState()
     {
         m_state = TStates.IDLE;
+        SetFadeValue(0.0f);
     }
     void UpdateIdleState()
     {
@@ -192,11 +222,15 @@ public class EnemyController : MonoBehaviour
     void SetDieState()
     {
         m_state = TStates.DIE;
-        gameObject.SetActive(false);
+        m_currenTime = 0.0f;
     }
     void UpdateDieState()
     {
-
+        m_currenTime += Time.deltaTime;
+        float l_Pct = Mathf.Min(1.0f, m_currenTime / m_DieTime);
+        SetFadeValue(l_Pct);
+        if(l_Pct ==1.0f)
+            gameObject.SetActive(false);
     }
 
     Vector3 SetNextChasePosition()

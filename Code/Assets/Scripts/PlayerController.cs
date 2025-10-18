@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     public float m_ShootMaxDistance = 50.0f;
     public LayerMask m_ShootLayerMask;
     public GameObject m_ShootParticles;
-    
+    PoolElements m_PoolParticles;
 
     [Header("Amount")]
     public float m_totalAmount = 50;
@@ -73,6 +73,9 @@ public class PlayerController : MonoBehaviour
     public GameObject m_nextLevel;
     void Start()
     {
+        m_PoolParticles=new PoolElements();
+        m_PoolParticles.Init(25,m_ShootParticles);
+
         m_initialAmmo = m_ChargerAmmoCount;
         SetIdleAnimation();
 
@@ -239,7 +242,7 @@ public class PlayerController : MonoBehaviour
     }
     void CreateShootHitParticles(Vector3 Position, Vector3 Normal)
     {
-        GameObject l_ShootParticles = GameObject.Instantiate(m_ShootParticles);
+        GameObject l_ShootParticles =m_PoolParticles.GetNextElement();
         l_ShootParticles.transform.position = Position;
         l_ShootParticles.transform.rotation = Quaternion.LookRotation(Normal);
         l_ShootParticles.SetActive(true);
@@ -334,8 +337,12 @@ public class PlayerController : MonoBehaviour
     }
     void Kill()
     {
-        GameManager.GetGameManager().RestartLevel();
+        GameManager.GetGameManager().m_fade.FadeIn(() =>
+        {
+            GameManager.GetGameManager().RestartLevel();
+        });
     }
+
     /*public void Restart() 
     { 
         m_CharacterController.enabled = false; 

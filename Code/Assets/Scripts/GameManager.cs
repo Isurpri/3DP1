@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     static GameManager m_GameManager;
     PlayerController m_Player;
     public Transform m_DestroyObjects;
+    public Fade m_fade;
+
     void Start()
     {
         if (m_GameManager != null)
@@ -56,6 +58,10 @@ public class GameManager : MonoBehaviour
 
             m_Player.m_CharacterController.enabled = true;
         }
+        m_fade.FadeOut(() =>
+        {
+            m_fade.gameObject.SetActive(false);
+        });
     }
     //para cambiar entre escenas
     private void Update()
