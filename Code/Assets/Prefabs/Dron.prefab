@@ -944,6 +944,11 @@ MonoBehaviour:
   - {fileID: 5333450189449866889}
   - {fileID: 3769615098199650543}
   m_DieTime: 1.5
+  m_dropObject:
+  - {fileID: 8987055325765964120, guid: 1f122f724e3109e4e81edc04966b9eea, type: 3}
+  - {fileID: 6645110938537825782, guid: 04c2a9f808d872b40b0ab4f1ca57c5e5, type: 3}
+  - {fileID: 7098274874739065093, guid: a1614f0cf649e3a4e894d20bda9008e7, type: 3}
+  m_DropChance: 0.9
 --- !u!1 &7755570890015881767
 GameObject:
   m_ObjectHideFlags: 0

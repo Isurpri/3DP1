@@ -1288,6 +1288,10 @@ PrefabInstance:
       value: HitCollider
       objectReference: {fileID: 0}
     - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_life
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
       propertyPath: m_Bullet
       value: 
       objectReference: {fileID: 841303891392405268, guid: 75a3a4fa51362154487e635c29237448, type: 3}
@@ -1295,6 +1299,22 @@ PrefabInstance:
       propertyPath: m_EyesHeight
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: m_dropObject.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: 'm_dropObject.Array.data[0]'
+      value: 
+      objectReference: {fileID: 6645110938537825782, guid: 04c2a9f808d872b40b0ab4f1ca57c5e5, type: 3}
+    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: 'm_dropObject.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8987055325765964120, guid: 1f122f724e3109e4e81edc04966b9eea, type: 3}
+    - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
+      propertyPath: 'm_dropObject.Array.data[2]'
+      value: 
+      objectReference: {fileID: 5572130720269738698, guid: 9633af526a3d78848b7fcc4bb8506651, type: 3}
     - target: {fileID: 3841673881987348902, guid: da44b075359b41e49a2a94d27263840e, type: 3}
       propertyPath: 'm_PatrolPosition.Array.data[0]'
       value: 

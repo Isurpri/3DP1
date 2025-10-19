@@ -1,5 +1,7 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
@@ -64,6 +66,9 @@ public class EnemyController : MonoBehaviour
     public List<MeshRenderer> m_MeshesRend;
     float m_currenTime;
     public float m_DieTime = 1.5f;
+    public List<GameObject> m_dropObject;
+    public float m_DropChance = 0.9f;
+
     private void Awake()
     {
         m_NavMeshAgent=GetComponent<NavMeshAgent>();
@@ -248,8 +253,11 @@ public class EnemyController : MonoBehaviour
         m_currenTime += Time.deltaTime;
         float l_Pct = Mathf.Min(1.0f, m_currenTime / m_DieTime);
         SetFadeValue(l_Pct);
-        if(l_Pct ==1.0f)
+        if(l_Pct == 1.0f)
+        {
+            DroppingItems();
             gameObject.SetActive(false);
+        }
     }
 
     Vector3 SetNextChasePosition()
@@ -338,6 +346,21 @@ public class EnemyController : MonoBehaviour
         m_previousState = m_state;
 
         SetHitState();
+    }
+
+    public void DroppingItems()
+    {
+        if (m_dropObject == null || m_dropObject.Count == 0) 
+            return;
+       
+        float randomChance = UnityEngine.Random.value; 
+        if (randomChance > m_DropChance)
+            return;
+
+        int randomItem = UnityEngine.Random.Range(0, m_dropObject.Count);
+        GameObject droppedItem = m_dropObject[randomItem];
+
+        Instantiate(droppedItem,transform.position + Vector3.down * 0.5f, Quaternion.identity);
     }
 }
 

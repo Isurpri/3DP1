@@ -185,7 +185,7 @@ GameObject:
   - component: {fileID: 4075633794345342540}
   m_Layer: 0
   m_Name: AmmoItem
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260b41126bc320343b7e175f868638a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AmmoCount: 10
+  m_AmmoCount: 30
 --- !u!1 &8103836712802522320
 GameObject:
   m_ObjectHideFlags: 0
