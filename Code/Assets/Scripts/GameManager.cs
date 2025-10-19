@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
     }
     public void LoadScene()
     {
-        SceneManager.LoadSceneAsync("VictorScene");
+        SceneManager.LoadSceneAsync("Level2");
     }
     public PlayerController GetPlayer()
     {
