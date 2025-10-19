@@ -60,6 +60,8 @@ public class PlayerController : MonoBehaviour
     public AnimationClip m_IdleAnimationClip;
     public AnimationClip m_ReloadAnimationClip;
     public AnimationClip m_ShootAnimationClip;
+    public Animation m_OpenDoor;
+    public AnimationClip m_OpenLittleDoor;
 
     [Header("Life")]
     public float m_Health = 100;
@@ -68,6 +70,7 @@ public class PlayerController : MonoBehaviour
     public float m_Shield = 30;
     public float m_initialShield;
     public float m_maxShield = 50;
+    public float m_Acces = 1;
 
     [Header("Score")]
     public float m_score = 0;
@@ -301,6 +304,14 @@ public class PlayerController : MonoBehaviour
         if (m_Shield > m_maxShield)
         {
             m_Shield = m_maxShield;
+        }
+    }
+    public void OpenDoor(int Acces)
+    {
+        m_Acces += Acces;
+        if (Acces == 1)
+        {
+            m_OpenDoor.Play(m_OpenLittleDoor.name);
         }
     }
 

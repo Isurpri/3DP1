@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7845786733972025065}
+  - component: {fileID: 5150295777787199843}
+  - component: {fileID: 6119056646589121433}
   m_Layer: 0
   m_Name: KeyCard
   m_TagString: Item
@@ -32,6 +34,40 @@ Transform:
   - {fileID: 5450931473291101685}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5150295777787199843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5572130720269738698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee3365022d1f101479a4574405e1c5fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Acces: 1
+--- !u!65 &6119056646589121433
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5572130720269738698}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.73661804, y: 0.72871196, z: 0.06486511}
+  m_Center: {x: -0.011100769, y: 0.017843485, z: -0.006324768}
 --- !u!1001 &5489641887327199774
 PrefabInstance:
   m_ObjectHideFlags: 0

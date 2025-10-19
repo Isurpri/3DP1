@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7234242967985325960}
   - component: {fileID: 4012835134088529349}
   - component: {fileID: 7505293669695749145}
+  - component: {fileID: 4163226931492606975}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Item
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 812197745459218127}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 36.91, y: -12.79, z: 16.81}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.39, y: 0.39, z: 0.39}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -122,6 +123,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9592826, y: 2.5381274, z: 0.3851731}
   m_Center: {x: -0.000000059604645, y: -0.060423553, z: 0.08848737}
+--- !u!111 &4163226931492606975
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812197745459218127}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: 03aae739e61ce3d49ae501cbe3bfabc9, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 03aae739e61ce3d49ae501cbe3bfabc9, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &7098274874739065093
 GameObject:
   m_ObjectHideFlags: 0
