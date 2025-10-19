@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     public Fade m_fade;
     public Transform m_PersistentParticlesParent;
 
+    private Vector3? m_LastCheckpointPosition = null;
+    private Quaternion? m_LastCheckpointRotation = null;
+
     void Awake()
     {
         if (m_GameManager != null)
@@ -45,6 +48,13 @@ public class GameManager : MonoBehaviour
         } 
         m_Player.Restart(); 
     }*/
+
+    public void SetCheckpoint(Vector3 position, Quaternion rotation)
+    {
+        m_LastCheckpointPosition = position;
+        m_LastCheckpointRotation = rotation;
+        Debug.Log("Checkpoint guardado en: " + position);
+    }
     public void RestartLevel()
     {
         for (int i = 0; i < m_DestroyObjects.childCount; ++i)
@@ -54,21 +64,29 @@ public class GameManager : MonoBehaviour
 
         if (m_Player != null)
         {
-            GameObject spawn = GameObject.FindWithTag("SpawnPoint");
-            m_Player.m_Health = m_Player.m_initialHealth;
-            m_Player.m_Shield = m_Player.m_initialShield;
-            m_Player.m_ChargerAmmoCount = m_Player.m_initialAmmo;
-            m_Player.m_CharacterController.enabled = false;
-
-            if (spawn != null)
+            if (m_LastCheckpointPosition.HasValue)
             {
-                m_Player.transform.position = spawn.transform.position;
-                m_Player.transform.rotation = spawn.transform.rotation;
+                m_Player.transform.position = m_LastCheckpointPosition.Value;
+                m_Player.transform.rotation = m_LastCheckpointRotation.Value;
             }
             else
             {
-                m_Player.transform.position = Vector3.zero;
-                m_Player.transform.rotation = Quaternion.identity;
+                GameObject spawn = GameObject.FindWithTag("SpawnPoint");
+                m_Player.m_Health = m_Player.m_initialHealth;
+                m_Player.m_Shield = m_Player.m_initialShield;
+                m_Player.m_ChargerAmmoCount = m_Player.m_initialAmmo;
+                m_Player.m_CharacterController.enabled = false;
+
+                if (spawn != null)
+                {
+                    m_Player.transform.position = spawn.transform.position;
+                    m_Player.transform.rotation = spawn.transform.rotation;
+                }
+                else
+                {
+                    m_Player.transform.position = Vector3.zero;
+                    m_Player.transform.rotation = Quaternion.identity;
+                }
             }
 
             m_Player.m_CharacterController.enabled = true;
