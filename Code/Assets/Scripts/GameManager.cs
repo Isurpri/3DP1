@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         m_LastCheckpointPosition = position;
         m_LastCheckpointRotation = rotation;
-        Debug.Log("Checkpoint guardado en: " + position);
+        //Debug.Log("Checkpoint guardado en: " + position);
     }
     public void RestartLevel()
     {
