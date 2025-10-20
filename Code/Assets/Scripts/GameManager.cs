@@ -66,6 +66,8 @@ public class GameManager : MonoBehaviour
         {
             if (m_LastCheckpointPosition.HasValue)
             {
+                m_Player.m_Health = m_Player.m_initialHealth;
+                m_Player.m_Shield = m_Player.m_initialShield;
                 m_Player.transform.position = m_LastCheckpointPosition.Value;
                 m_Player.transform.rotation = m_LastCheckpointRotation.Value;
             }
