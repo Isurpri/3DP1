@@ -1543,6 +1543,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8931999078276749702, guid: 67a62415e74695e43b96ef913806c135, type: 3}
+      propertyPath: m_OpenDoor
+      value: 
+      objectReference: {fileID: 1118140985308936240}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3011,6 +3015,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Checkpoint (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 3322871936412250141, guid: 39b35c4f77d0c5f4da8a0f8f84c66f6a, type: 3}
+      propertyPath: m_Layer
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3068,6 +3076,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Escenrio2
       objectReference: {fileID: 0}
+    - target: {fileID: 3540115459996311364, guid: e7a73c99aa655e04c9356aafedd07b54, type: 3}
+      propertyPath: m_Animation
+      value: 
+      objectReference: {fileID: 7400000, guid: c2f89178edee00749b2582e31fd5a2e6, type: 2}
     - target: {fileID: 6148771101324010220, guid: e7a73c99aa655e04c9356aafedd07b54, type: 3}
       propertyPath: m_NavMeshData
       value: 
@@ -3086,6 +3098,11 @@ PrefabInstance:
 --- !u!4 &1118140985308936239 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1853473292731250418, guid: e7a73c99aa655e04c9356aafedd07b54, type: 3}
+  m_PrefabInstance: {fileID: 1118140985308936238}
+  m_PrefabAsset: {fileID: 0}
+--- !u!111 &1118140985308936240 stripped
+Animation:
+  m_CorrespondingSourceObject: {fileID: 3540115459996311364, guid: e7a73c99aa655e04c9356aafedd07b54, type: 3}
   m_PrefabInstance: {fileID: 1118140985308936238}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2315355838055079303
@@ -3155,6 +3172,10 @@ PrefabInstance:
     - target: {fileID: 3322871936412250141, guid: 39b35c4f77d0c5f4da8a0f8f84c66f6a, type: 3}
       propertyPath: m_Name
       value: Checkpoint
+      objectReference: {fileID: 0}
+    - target: {fileID: 3322871936412250141, guid: 39b35c4f77d0c5f4da8a0f8f84c66f6a, type: 3}
+      propertyPath: m_Layer
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
