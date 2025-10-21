@@ -170,7 +170,7 @@ MonoBehaviour:
   m_ShootMaxDistance: 50
   m_ShootLayerMask:
     serializedVersion: 2
-    m_Bits: 7
+    m_Bits: 135
   m_ShootParticles: {fileID: 721779117152424636, guid: 875c80d10f1276f46912af6893157b68, type: 3}
   m_totalAmount: 50
   m_MaxAmount: 70
