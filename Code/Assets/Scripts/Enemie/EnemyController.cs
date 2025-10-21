@@ -118,11 +118,11 @@ public class EnemyController : MonoBehaviour
                 UpdateDieState();
                 break;
         }
-        //UpdateLifeBarUI();
+        UpdateLifeBarUI();
     }
     void UpdateLifeBarUI()
     {
-        //m_LifeBarElementUI.Show(m_LifeBarTransform.position, m_life/(float)m_Maxlife);
+        m_LifeBarElementUI.Show(m_LifeBarTransform.position, m_life/(float)m_Maxlife);
     }
     void SetIdleState()
     {
