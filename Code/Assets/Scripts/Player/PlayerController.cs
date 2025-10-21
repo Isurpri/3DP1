@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
     public float m_initialShield;
     public float m_maxShield = 50;
     public float m_Acces = 1;
+    public ParticleSystem m_ParticlesHealth;
 
     [Header("Score")]
     public float m_score = 0;
@@ -293,6 +294,8 @@ public class PlayerController : MonoBehaviour
     public void AddHealing(int Healing)
     {
         m_Health += Healing;
+        m_ParticlesHealth.Play();
+
         if (m_Health > m_maxHealth)
         {
             m_Health = m_maxHealth;
