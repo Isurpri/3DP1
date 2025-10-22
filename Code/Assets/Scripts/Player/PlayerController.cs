@@ -312,7 +312,7 @@ public class PlayerController : MonoBehaviour
     public void OpenDoor(int Acces)
     {
         m_Acces += Acces;
-        if (Acces == 1)
+        if (Acces >= 1)
         {
             m_OpenDoor.Play(m_OpenLittleDoor.name);
         }

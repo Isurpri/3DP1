@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Shield: 20
   m_initialShield: 0
   m_maxShield: 50
-  m_Acces: 1
+  m_Acces: 0
   m_ParticlesHealth: {fileID: 4263523993516915204}
   m_score: 0
   m_scoreNecessary: 20
