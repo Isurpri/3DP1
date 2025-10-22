@@ -256,6 +256,8 @@ public class EnemyController : MonoBehaviour
         float l_Pct = Mathf.Min(1.0f, m_currenTime / m_DieTime);
         m_DieParticles.Play();
         SetFadeValue(l_Pct);
+        GameObject lifebar = m_LifeBarElementUI.gameObject;
+        lifebar.SetActive(false);
         if(l_Pct == 1.0f)
         {
             DroppingItems();

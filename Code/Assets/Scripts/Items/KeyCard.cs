@@ -4,7 +4,7 @@ public class KeyCard : Item
     public override void Pick()
     {
         base.Pick();
-        GameManager.GetGameManager().GetPlayer().OpenDoor(m_Acces);
+        base.OpenDoor();
     }
     public override bool CanPick()
     {
