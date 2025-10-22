@@ -57,7 +57,8 @@ public class EnemyController : MonoBehaviour
     [Header("Hit")]
     private float m_HitDuration = 0.5f;
     private float m_HitTimer = 0f;
-    public ParticleSystem m_Hitparticles;
+    public ParticleSystem m_HitParticles;
+    public ParticleSystem m_DieParticles;
 
     [Header("LifeBar")]
     public Transform m_LifeBarTransform;
@@ -253,6 +254,7 @@ public class EnemyController : MonoBehaviour
     {
         m_currenTime += Time.deltaTime;
         float l_Pct = Mathf.Min(1.0f, m_currenTime / m_DieTime);
+        m_DieParticles.Play();
         SetFadeValue(l_Pct);
         if(l_Pct == 1.0f)
         {
@@ -338,7 +340,7 @@ public class EnemyController : MonoBehaviour
     public void Hit(int damage)
     {
         m_life -= damage;
-        m_Hitparticles.Play();
+        m_HitParticles.Play();
 
         if (m_life <= 0)
             SetDieState();
