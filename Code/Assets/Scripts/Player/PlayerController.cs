@@ -69,7 +69,12 @@ public class PlayerController : MonoBehaviour
     public float m_initialShield;
     public float m_maxShield = 50;
     public float m_Acces = 1;
+
+    [Header("particles")]
     public ParticleSystem m_ParticlesHealth;
+    public ParticleSystem m_ParticlesBuff;
+    public ParticleSystem m_ParticlesNextLevel;
+    public ParticleSystem m_ParticlesHit;
 
     [Header("Score")]
     public float m_score = 0;
@@ -252,7 +257,11 @@ public class PlayerController : MonoBehaviour
         GameObject l_ShootParticles =m_PoolParticles.GetNextElement();
         l_ShootParticles.transform.position = Position;
         l_ShootParticles.transform.rotation = Quaternion.LookRotation(Normal);
+        m_ParticlesHit.transform.position = Position;
+        m_ParticlesHit.transform.rotation = Quaternion.LookRotation(Normal);
+        m_ParticlesHit.Play();
         l_ShootParticles.SetActive(true);
+
     }
 
     void SetIdleAnimation()
@@ -284,6 +293,8 @@ public class PlayerController : MonoBehaviour
     public void AddAmmo(int Ammo)
     {
         m_totalAmount += Ammo;
+        m_ParticlesBuff.Play();
+
         if (m_totalAmount > m_MaxAmount)
         {
             m_totalAmount = m_MaxAmount;
@@ -302,6 +313,8 @@ public class PlayerController : MonoBehaviour
     public void AddShield(int Shield)
     {
         m_Shield += Shield;
+        m_ParticlesBuff.Play();
+
         if (m_Shield > m_maxShield)
         {
             m_Shield = m_maxShield;
@@ -367,6 +380,7 @@ public class PlayerController : MonoBehaviour
         {
             if (m_score >= m_scoreNecessary)
             {
+                m_ParticlesNextLevel.Play();
                 m_nextLevel.SetActive(true);
             }
             else
