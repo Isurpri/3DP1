@@ -4145,13 +4145,17 @@ PrefabInstance:
       propertyPath: m_LittleDoor
       value: 
       objectReference: {fileID: 1406662544}
+    - target: {fileID: 5450931473291101685, guid: 9633af526a3d78848b7fcc4bb8506651, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.261
+      objectReference: {fileID: 0}
     - target: {fileID: 5572130720269738698, guid: 9633af526a3d78848b7fcc4bb8506651, type: 3}
       propertyPath: m_Name
       value: KeyCard
       objectReference: {fileID: 0}
     - target: {fileID: 7845786733972025065, guid: 9633af526a3d78848b7fcc4bb8506651, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 158.74
+      value: 157.739
       objectReference: {fileID: 0}
     - target: {fileID: 7845786733972025065, guid: 9633af526a3d78848b7fcc4bb8506651, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4159,7 +4163,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7845786733972025065, guid: 9633af526a3d78848b7fcc4bb8506651, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 156.84
+      value: 157.149
       objectReference: {fileID: 0}
     - target: {fileID: 7845786733972025065, guid: 9633af526a3d78848b7fcc4bb8506651, type: 3}
       propertyPath: m_LocalRotation.w
