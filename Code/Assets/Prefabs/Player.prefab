@@ -197,8 +197,6 @@ MonoBehaviour:
   m_IdleAnimationClip: {fileID: 7400000, guid: 832d11ab01f28414e9eb2f84eaf7faab, type: 2}
   m_ReloadAnimationClip: {fileID: 7400000, guid: 929f0115bc898aa469aed62dc8811f4d, type: 2}
   m_ShootAnimationClip: {fileID: 7400000, guid: 1a5f1b838e5814f418d41f79e463531c, type: 2}
-  m_OpenDoor: {fileID: 0}
-  m_OpenLittleDoor: {fileID: 7400000, guid: c2f89178edee00749b2582e31fd5a2e6, type: 2}
   m_Health: 100
   m_initialHealth: 0
   m_maxHealth: 150
@@ -389,6 +387,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6356438961120104147, guid: d8703a33a4eb0b84a875202fde23e8f7, type: 3}
       propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6356438961120104147, guid: d8703a33a4eb0b84a875202fde23e8f7, type: 3}
+      propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6356438961120104147, guid: d8703a33a4eb0b84a875202fde23e8f7, type: 3}
